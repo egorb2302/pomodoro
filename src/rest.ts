@@ -1,12 +1,12 @@
-import { Resttimer } from "./rest";
+import { timer } from "./counter";
 
-let secIntervalUnit: number | null = null;
-let minIntervalUnit: number | null = null;
+let secRestIntervalUnit: number | null = null;
+let minRestIntervalUnit: number | null = null;
 
 function secsCounter(arg: HTMLElement) : number {
   let counter: number = 0;
   arg.textContent = '00'; 
-  secIntervalUnit = setInterval(() => {
+  secRestIntervalUnit = setInterval(() => {
     counter++
     arg.textContent = counter < 10 ? `0${counter}` : `${counter}`;
 
@@ -16,45 +16,44 @@ function secsCounter(arg: HTMLElement) : number {
       secsCounter(arg)
     }
   }, 1000)
-  return secIntervalUnit
+  return secRestIntervalUnit
 }
 
 function stopSecsCounter() {
-  if (secIntervalUnit !== null) {
-    clearInterval(secIntervalUnit);
-    secIntervalUnit = null;
+  if (secRestIntervalUnit !== null) {
+    clearInterval(secRestIntervalUnit);
+    secRestIntervalUnit = null;
   }
 }
 
 function minCounter(arg: HTMLElement) : number {
   let counter: number = 0;
 
-  minIntervalUnit = setInterval(() => {
+  minRestIntervalUnit = setInterval(() => {
     counter++;
     arg.textContent = counter < 10 ? `0${counter}` : `${counter}`;
 
-    if (counter === 45) {
-      alert('time to rest!')
-      // stopMinCounter();
-      stopTimer()
+    if (counter === 25) {
+      alert('rest is over!')
+      stopRestTimer()
       counter = 0;
-      Resttimer();
+      timer();
     }
   }, 10000);
-  return minIntervalUnit
+  return minRestIntervalUnit
 }
 
 function stopMinCounter() {
-  if (minIntervalUnit !== null) {
-    clearInterval(minIntervalUnit);
-    minIntervalUnit = null;
+  if (minRestIntervalUnit !== null) {
+    clearInterval(minRestIntervalUnit);
+    minRestIntervalUnit = null;
   }
 }
 
 export const minutes: HTMLElement | null = document.querySelector('.minutes');
 export const seconds: HTMLElement | null = document.querySelector('.seconds');
 
-export function timer(): void {
+export function Resttimer(): void {
   if (!minutes || !seconds) {
     return
   }
@@ -63,7 +62,7 @@ export function timer(): void {
   minCounter(minutes!); 
 }
 
-export function stopTimer(): void {
+export function stopRestTimer(): void {
   stopSecsCounter();
   stopMinCounter();
 
@@ -74,4 +73,3 @@ export function stopTimer(): void {
   minutes.textContent = '00';
   seconds.textContent = '00';
 }
-
