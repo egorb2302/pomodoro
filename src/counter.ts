@@ -33,7 +33,7 @@ function minCounter(arg: HTMLElement) : number {
     counter++;
     arg.textContent = counter < 10 ? `0${counter}` : `${counter}`;
 
-    if (counter === 45) {
+    if (counter === 25) {
       alert('time to rest!')
       // stopMinCounter();
       stopTimer()
